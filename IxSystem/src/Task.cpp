@@ -266,6 +266,7 @@ CTask::E_TASK_STATE CTaskExUser::OnRunTask( CTaskEx* pTask )
 }
 
 CTaskEx::CTaskEx()
+	:lpListCTaskExUsers(new std::list<CTaskExUser*>())
 {
 
 }
