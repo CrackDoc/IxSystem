@@ -5,6 +5,7 @@
 // 友元函数访问pTask 受保护的(Protected)成员变量或者函数
 void* TaskProc( void* lpParameter )
 {
+	
 	CTask *pTask = static_cast<CTask*>(lpParameter);
 	if(pTask != NULL)
 	{
