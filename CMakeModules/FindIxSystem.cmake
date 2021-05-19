@@ -19,9 +19,11 @@ FIND_PATH(IxSystem_INCLUDE_DIR SystemExport.h
     "C:/IxSystem/include"
 	"C:/Program Files/IxSystem/include"
 )
+MACRO(FIND_IxSystem_LIBRARY MYLIBRARY MYLIBRARYNAME )
 
-FIND_LIBRARY(IxSystem_LIBRARY
-NAMES "IxSystem"
+FIND_LIBRARY(${MYLIBRARY}
+    NAMES
+        ${MYLIBRARYNAME}
 PATHS
 	${IxSystem_DIR}/lib
     $ENV{IxSystem_PATH}
@@ -37,6 +39,11 @@ PATHS
     "C:/IxSystem/lib"
 	"C:/Program Files/IxSystem/lib"
 )
+ENDMACRO(FIND_IxSystem_LIBRARY LIBRARY LIBRARYNAME)
+
+FIND_IxSystem_LIBRARY(IxSystem_LIBRARY IxSystem )
+FIND_IxSystem_LIBRARY(IxSystem_LIBRARY_DEBUG IxSystemd)
+
 SET(IxSystem_FOUND FALSE)
 IF (IxSystem_INCLUDE_DIR AND IxSystem_LIBRARY)
    SET(IxSystem_FOUND TRUE)

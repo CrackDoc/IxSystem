@@ -20,9 +20,13 @@ FIND_PATH(ExtendStructure_INCLUDE_DIR ExtendStructureExport.h
 	"C:/Program Files/ExtendStructure/include"
 )
 
-FIND_LIBRARY(ExtendStructure_LIBRARY
-NAMES "ExtendStructure"
-PATHS
+
+MACRO( FIND_ExtendStructure_LIBRARY MYLIBRARY MYLIBRARYNAME )
+
+FIND_LIBRARY(${MYLIBRARY}
+    NAMES
+        ${MYLIBRARYNAME}
+		PATHS
 	${ExtendStructure_DIR}/lib
     $ENV{ExtendStructure_PATH}
     $ENV{ExtendStructure_DIR}/lib
@@ -37,6 +41,11 @@ PATHS
     "C:/ExtendStructure/lib"
 	"C:/Program Files/ExtendStructure/lib"
 )
+ENDMACRO(FIND_ExtendStructure_LIBRARY LIBRARY LIBRARYNAME)
+
+FIND_ExtendStructure_LIBRARY(ExtendStructure_LIBRARY ExtendStructure )
+FIND_ExtendStructure_LIBRARY(ExtendStructure_LIBRARY_DEBUG ExtendStructured)
+
 SET(ExtendStructure_FOUND FALSE)
 IF (ExtendStructure_INCLUDE_DIR AND ExtendStructure_LIBRARY)
    SET(ExtendStructure_FOUND TRUE)

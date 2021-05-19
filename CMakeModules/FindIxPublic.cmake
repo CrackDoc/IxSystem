@@ -19,9 +19,11 @@ FIND_PATH(IxPublic_INCLUDE_DIR PublicExport.h
     "C:/IxPublic/include"
 	"C:/Program Files/IxPublic/include"
 )
+MACRO(FIND_IxPublic_LIBRARY MYLIBRARY MYLIBRARYNAME )
 
-FIND_LIBRARY(IxPublic_LIBRARY
-NAMES "IxPublic"
+FIND_LIBRARY(${MYLIBRARY}
+    NAMES
+        ${MYLIBRARYNAME}
 PATHS
 	${IxPublic_DIR}/lib
     $ENV{IxPublic_PATH}
@@ -37,6 +39,11 @@ PATHS
     "C:/IxPublic/lib"
 	"C:/Program Files/IxPublic/lib"
 )
+ENDMACRO(FIND_IxPublic_LIBRARY LIBRARY LIBRARYNAME)
+
+FIND_IxPublic_LIBRARY(IxPublic_LIBRARY IxPublic )
+FIND_IxPublic_LIBRARY(IxPublic_LIBRARY_DEBUG IxPublicd)
+
 SET(IxPublic_FOUND FALSE)
 IF (IxPublic_INCLUDE_DIR AND IxPublic_LIBRARY)
    SET(IxPublic_FOUND TRUE)

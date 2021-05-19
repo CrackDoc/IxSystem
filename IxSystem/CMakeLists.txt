@@ -36,21 +36,25 @@ find_package(pthread)
 if(pthread_FOUND)
 	include_directories(${pthread_DIR}/include)
 	link_directories(${pthread_DIR}/lib)
-	target_link_libraries(${PROJECT_NAME} ${pthread_LIBRARY})
+	target_link_libraries(${PROJECT_NAME} general ${pthread_LIBRARY})
 endif(pthread_FOUND)
 
 find_package(IxPublic)
 if(IxPublic_FOUND)
 	include_directories(${IxPublic_DIR}/include)
 	link_directories(${IxPublic_DIR}/lib)
-	target_link_libraries(${PROJECT_NAME} ${IxPublic_LIBRARY})
+	target_link_libraries(${PROJECT_NAME} debug ${IxPublic_LIBRARY})
+	target_link_libraries(${PROJECT_NAME} optimized ${IxPublic_LIBRARY})
+	
 endif(IxPublic_FOUND)
 
 find_package(ExtendStructure)
 if(ExtendStructure_FOUND)
 	include_directories(${ExtendStructure_DIR}/include)
 	link_directories(${ExtendStructure_DIR}/lib)
-	target_link_libraries(${PROJECT_NAME} ${ExtendStructure_LIBRARY})
+	target_link_libraries(${PROJECT_NAME} debug ${ExtendStructure_LIBRARY_DEBUG})
+	target_link_libraries(${PROJECT_NAME} optimized ${ExtendStructure_LIBRARY})
+	
 endif(ExtendStructure_FOUND)
 
 #-----------------TODO 执行外部命令
