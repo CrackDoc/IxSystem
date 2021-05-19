@@ -43,7 +43,7 @@ find_package(IxPublic)
 if(IxPublic_FOUND)
 	include_directories(${IxPublic_DIR}/include)
 	link_directories(${IxPublic_DIR}/lib)
-	target_link_libraries(${PROJECT_NAME} debug ${IxPublic_LIBRARY})
+	target_link_libraries(${PROJECT_NAME} debug ${IxPublic_LIBRARY_DEBUG})
 	target_link_libraries(${PROJECT_NAME} optimized ${IxPublic_LIBRARY})
 	
 endif(IxPublic_FOUND)
