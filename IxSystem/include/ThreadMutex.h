@@ -13,7 +13,7 @@
 #ifndef _THREAD_MUTEX_H_
 #define _THREAD_MUTEX_H_
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 
 #if defined(WIN32) || defined(__linux__)
 #include <pthread.h>

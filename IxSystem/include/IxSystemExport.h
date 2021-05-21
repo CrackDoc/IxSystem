@@ -1,5 +1,5 @@
-#ifndef _SYSTEM_EXPORT_H_
-#define _SYSTEM_EXPORT_H_
+#ifndef _IXSYSTEM_EXPORT_H_
+#define _IXSYSTEM_EXPORT_H_
 
 #include "SystemConfig.h"
 

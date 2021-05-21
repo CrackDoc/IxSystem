@@ -12,7 +12,7 @@
 #ifndef ProcessMutex_h__
 #define ProcessMutex_h__
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 #include <string>
 
 #ifdef WIN32

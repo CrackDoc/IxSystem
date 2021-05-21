@@ -1,7 +1,7 @@
 #ifndef _ETHERNET_H_
 #define _ETHERNET_H_
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 
 #include <vector>
 #include <string>

@@ -1,7 +1,7 @@
 #ifndef IThreadEvent_h__
 #define IThreadEvent_h__
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 
 class SYSTEM_EXPORT IThreadEvent
 {

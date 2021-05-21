@@ -1,6 +1,6 @@
 #ifndef _CSYSTEMUTILITY_H_
 #define _CSYSTEMUTILITY_H_
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 #include "SystemConfig.h"
 #include<iostream>
 #include<sstream>

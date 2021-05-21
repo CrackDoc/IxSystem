@@ -12,7 +12,7 @@
 #ifndef _PROCESS_SEMAPHORE_H_
 #define _PROCESS_SEMAPHORE_H_
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 #include "semaphore.h"
 
 #ifndef VXWORKS

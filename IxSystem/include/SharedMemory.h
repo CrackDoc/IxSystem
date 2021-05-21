@@ -12,7 +12,7 @@
 #ifndef _SHARED_MEMORY_H_
 #define _SHARED_MEMORY_H_
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 
 #ifndef VXWORKS
 #ifdef WIN32

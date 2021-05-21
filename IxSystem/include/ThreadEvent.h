@@ -16,7 +16,7 @@
 #ifndef _THREAD_EVENT_H_
 #define _THREAD_EVENT_H_
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 #include "IThreadEvent.h"
 
 #include "ThreadMutex.h"

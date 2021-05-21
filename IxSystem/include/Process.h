@@ -12,7 +12,7 @@
 #ifndef _PROCESS_H_
 #define _PROCESS_H_
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 
 #ifdef WIN32
 #include <windows.h>

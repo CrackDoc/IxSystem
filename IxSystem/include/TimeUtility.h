@@ -12,7 +12,7 @@
 #ifndef _TIME_UTILITY_H_
 #define _TIME_UTILITY_H_
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 
 #include <string>
 

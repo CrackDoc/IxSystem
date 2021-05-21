@@ -13,7 +13,7 @@
 #ifndef _TASK_H_
 #define _TASK_H_
 
-#include "SystemExport.h"
+#include "IxSystemExport.h"
 #include "SystemConfig.h"
 #include "pthread.h"
 #include "TaskSemaphore.h"
