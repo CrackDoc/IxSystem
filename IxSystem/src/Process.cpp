@@ -1,5 +1,23 @@
 #include "Process.h" 
 #include <string>
+#ifdef WIN32
+#include <windows.h>
+#include <tlhelp32.h>
+#include <locale.h>  
+#include <locale> 
+#elif defined __linux__
+#include "pthread.h"
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#elif defined VXWORKS
+#	include "ThreadEvent.h"
+#	include "Library.h"
+#	ifdef REWORKS
+#		include <reworks/types.h>
+#		include "types/vxTypesOld.h"
+#	endif
+#endif
 
 #ifdef VXWORKS
 void CProcess::ProcessProc( void* lpParameter )
@@ -11,6 +29,10 @@ void CProcess::ProcessProc( void* lpParameter )
 
 CProcess::CProcess()
 {
+	m_ProcessInfo = new PROCESS_INFORMATION;
+
+	m_ProStartuoInfo = new STARTUPINFO;
+
 	memset(m_WorkDirBuf, '\0', sizeof(char) * 256);
 
 }
@@ -20,13 +42,15 @@ CProcess::~CProcess()
 	//等待进程退出
 	Wait();
 #ifdef WIN32
-	if(m_ProcessInfo.hThread != NULL)
+	if(((PPROCESS_INFORMATION)m_ProcessInfo)->hThread != NULL)
 	{
-		CloseHandle(m_ProcessInfo.hThread);
+		CloseHandle(((PPROCESS_INFORMATION)m_ProcessInfo)->hThread);
+		delete m_ProcessInfo;
 	}
-	if(m_ProcessInfo.hProcess != NULL)
+	if(((PPROCESS_INFORMATION)m_ProcessInfo)->hProcess != NULL)
 	{
-		CloseHandle(m_ProcessInfo.hProcess);
+		CloseHandle(((PPROCESS_INFORMATION)m_ProcessInfo)->hProcess);
+		delete m_ProcessInfo;
 	}
 #elif defined __linux__
 #elif defined VXWORKS
@@ -115,10 +139,10 @@ bool CProcess::Create( const char* szstrFilePath, const char *szstrParam, int nS
 	bool bSucc = false;
 #ifdef WIN32
 	std::locale loc = std::locale::global(std::locale(""));
-	ZeroMemory( &m_ProStartuoInfo, sizeof(m_ProStartuoInfo));
-	m_ProStartuoInfo.cb = sizeof(m_ProStartuoInfo);
-	m_ProStartuoInfo.wShowWindow = (nShowCMD<0)?SW_HIDE:SW_SHOWNORMAL;
-	ZeroMemory( &m_ProcessInfo, sizeof(m_ProcessInfo));
+	ZeroMemory( m_ProStartuoInfo, sizeof(m_ProStartuoInfo));
+	((STARTUPINFO*)m_ProcessInfo)->cb = sizeof(m_ProStartuoInfo);
+	((STARTUPINFO*)m_ProcessInfo)->wShowWindow = (nShowCMD<0)?SW_HIDE:SW_SHOWNORMAL;
+	ZeroMemory( m_ProcessInfo, sizeof(m_ProcessInfo));
 
 	
 	// Start the child process. 
@@ -130,8 +154,8 @@ bool CProcess::Create( const char* szstrFilePath, const char *szstrParam, int nS
 		0,              // No creation flags
 		NULL,           // Use parent's environment block
 		m_WorkDirBuf,        // Use parent's starting directory 
-		&m_ProStartuoInfo,				// Pointer to STARTUPINFO structure
-		&m_ProcessInfo );				// Pointer to PROCESS_INFORMATION structure
+		(STARTUPINFO*)m_ProStartuoInfo,				// Pointer to STARTUPINFO structure
+		(PPROCESS_INFORMATION)m_ProcessInfo );				// Pointer to PROCESS_INFORMATION structure
 	std::locale::global(loc);
 	bSucc = (nRet == 0)?false:true;
 #elif defined __linux__
@@ -152,7 +176,7 @@ bool CProcess::Create( const char* szstrFilePath, const char *szstrParam, int nS
 bool CProcess::Wait( int nMilliSecond /*= -1*/ )
 {
 #ifdef WIN32
-	int nRet = WaitForSingleObject(m_ProcessInfo.hProcess, nMilliSecond);// 等待程序退出
+	int nRet = WaitForSingleObject(((PPROCESS_INFORMATION)m_ProcessInfo)->hProcess, nMilliSecond);// 等待程序退出
 	return nRet == WAIT_OBJECT_0?true:false;
 #elif defined __linux__
 	int chlidPId = wait();
@@ -165,7 +189,7 @@ bool CProcess::Terminate()
 {
 	bool bSucc = false;
 #ifdef WIN32
-	int nRet = TerminateProcess(m_ProcessInfo.hProcess,0);
+	int nRet = TerminateProcess(((PPROCESS_INFORMATION)m_ProcessInfo)->hProcess,0);
 	bSucc = (nRet==0?false:true);
 #elif defined __linux__
 #elif defined VXWORKS
@@ -175,7 +199,7 @@ bool CProcess::Terminate()
 int CProcess::GetProcessId()
 {
 #ifdef WIN32
-	return m_ProcessInfo.dwProcessId;
+	return ((PPROCESS_INFORMATION)m_ProcessInfo)->dwProcessId;
 #elif defined __linux__
 	return m_nProcessId;
 #elif defined VXWORKS
@@ -185,7 +209,7 @@ int CProcess::GetProcessId()
 int CProcess::GetMainThreadId()
 {
 #ifdef WIN32
-	return m_ProcessInfo.dwProcessId;
+	return ((PPROCESS_INFORMATION)m_ProcessInfo)->dwProcessId;
 #elif defined __linux__
 	return pthread_self();
 #elif defined VXWORKS

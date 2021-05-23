@@ -2,6 +2,15 @@
 #include "ProcessMutex.h"
 #include <iostream>
 #include <string>
+#ifdef WIN32
+#include <windows.h>
+#include <winbase.h>
+#elif defined __linux__
+#	include <sys/types.h>
+#	include <sys/ipc.h>
+#	include <sys/shm.h>
+#include <system_error>
+#endif
 
 CSharedMemory::CSharedMemory( const char* szstrKey )
 {

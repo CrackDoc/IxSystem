@@ -1,6 +1,14 @@
 #include "SystemUtility.h"
 
-
+#if defined WIN32
+#include <windows.h>
+#elif defined __linux__
+#include <unistd.h>
+#include <sys/stat.h> ¡¡
+#include <sys/types.h>
+#include <sys/time.h>
+#elif defined VXWORKS
+#endif
 #if defined WIN32
 int gettimeofday(struct timeval* tp, void* tz)
 {

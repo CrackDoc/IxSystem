@@ -14,19 +14,11 @@
 
 #include "IxSystemExport.h"
 
-#ifndef VXWORKS
 #ifdef WIN32
-#include <windows.h>
-#include <winbase.h>
 	typedef HANDLE SharedMemoryHandle;
 #elif defined __linux__
-#	include <sys/types.h>
-#	include <sys/ipc.h>
-#	include <sys/shm.h>
-#include <system_error>
 	typedef int SharedMemoryHandle;
 #endif
-
 /**
 * @class CSharedMemory
 * @brief 共享内存的相关操作
@@ -165,7 +157,5 @@ private:
 
 	E_ERROR m_eError;	///<共享内存操作的错误枚举变量
 };
-
-#endif
 #endif
 

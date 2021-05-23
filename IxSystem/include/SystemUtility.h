@@ -4,28 +4,18 @@
 #include "SystemConfig.h"
 #include<iostream>
 #include<sstream>
+#include "pthread.h"
 
 #if defined WIN32
-#include "pthread.h"
-#include <windows.h>
 #define sleep(sec)   Sleep(sec * 1000)
 #define msleep(msec) Sleep(msec)
 #pragma warning(disable: 4996) // avoid GetVersionEx to be warned  
 #elif defined __linux__
-#include <unistd.h>
-#include <sys/stat.h> 　
-#include <sys/types.h>
-#include <sys/time.h>
-#include "pthread.h"
 #define msleep(msec) usleep(msec * 1000)
 #elif defined VXWORKS
 #endif
 
-
-
 #define  MBYTES  1048576  
-
-#if defined WIN32
 /**
 	* @fn       void gettimeofday(struct timeval* tp, void* tz)   
 	* @brief    获取系统时间  以1900 1月
@@ -100,4 +90,3 @@ extern SYSTEM_EXPORT u_int64 GetCurrentTimeMsSeconds();
 	* @return   u_int64       
 */
 extern SYSTEM_EXPORT u_int64 GetCurrentTimeSeconds();
-#endif

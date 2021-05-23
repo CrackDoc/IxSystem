@@ -13,26 +13,6 @@
 #define _PROCESS_H_
 
 #include "IxSystemExport.h"
-
-#ifdef WIN32
-#include <windows.h>
-#include <tlhelp32.h>
-#include <locale.h>  
-#include <locale> 
-#elif defined __linux__
-#include "pthread.h"
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#elif defined VXWORKS
-#	include "ThreadEvent.h"
-#	include "Library.h"
-#	ifdef REWORKS
-#		include <reworks/types.h>
-#		include "types/vxTypesOld.h"
-#	endif
-#endif
-
 /**
 * @class CProcess
 * @brief 跨平台进程封装
@@ -123,8 +103,11 @@ private:
 	//std::string m_strWorkingDir;	///<进程工作路径
 
 #ifdef WIN32
-	PROCESS_INFORMATION m_ProcessInfo;	///<进程信息
-	STARTUPINFO m_ProStartuoInfo;
+	//PROCESS_INFORMATION m_ProcessInfo;	///<进程信息
+	//STARTUPINFO m_ProStartuoInfo;
+
+	void* m_ProcessInfo;
+	void* m_ProStartuoInfo;
 #elif defined __linux__
 	char* m_pArgv[100];	///<agv参数
 	int m_nProcessId;	///<进程ID
