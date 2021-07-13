@@ -4,7 +4,7 @@
 CProcessSemaphore::CProcessSemaphore( const char* strKey, int nInitialCount /*= -1*/, E_ACCESS_MODE eE_ACCESS_MODE /*= E_ACCESS_MODE_OPEN*/ )
 {
 	memset(m_KeyBufer, '\0', sizeof(char) * 128);
-	strcat_s(m_KeyBufer, strKey);
+	strcat(m_KeyBufer, strKey);
 
 	m_nInitialCount = nInitialCount;
 

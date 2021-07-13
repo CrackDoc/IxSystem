@@ -1,7 +1,6 @@
 #include "Task.h"
 #include <string>
 #include <list>
-
 // 友元函数访问pTask 受保护的(Protected)成员变量或者函数
 void* TaskProc( void* lpParameter )
 {
@@ -64,7 +63,7 @@ CTask::~CTask()
 
 bool CTask::Activate( const char* strTaskName /*= ""*/,E_PRIORITY ePriority /*= E_PRIORITY_NORMAL*/,int nStackSize /*= 1024*100*/ )
 {
-	strcat_s(m_TaskBufName, strTaskName);
+	strcat(m_TaskBufName, strTaskName);
 
 	int nRet = pthread_create((pthread_t*)&m_hHandle,&m_Abttribute,TaskProc,this);
 	if(nRet != 0)

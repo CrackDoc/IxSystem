@@ -2,14 +2,7 @@
 
 #if defined WIN32
 #include <windows.h>
-#elif defined __linux__
-#include <unistd.h>
-#include <sys/stat.h> ¡¡
-#include <sys/types.h>
-#include <sys/time.h>
-#elif defined VXWORKS
-#endif
-#if defined WIN32
+#ifdef _MSC_VER
 int gettimeofday(struct timeval* tp, void* tz)
 {
 	time_t clock;
@@ -22,12 +15,12 @@ int gettimeofday(struct timeval* tp, void* tz)
 	tm.tm_hour = wtm.wHour;
 	tm.tm_min = wtm.wMinute;
 	tm.tm_sec = wtm.wSecond;
-	tm. tm_isdst= -1;
+	tm.tm_isdst = -1;
 	clock = mktime(&tm);
 	tp->tv_sec = (long)clock;
 	tp->tv_usec = wtm.wMilliseconds * 1000;
 	return 0;
-} 
+}
 void usleep(int64_t usec)
 {
 	HANDLE timer;
@@ -39,7 +32,19 @@ void usleep(int64_t usec)
 	WaitForSingleObject(timer, INFINITE);
 	CloseHandle(timer);
 }
+#elif defined __MINGW32__
+#include <unistd.h>
+#include <sys/stat.h> ¡¡
+#include <sys/types.h>
+#include <sys/time.h>
+#endif
 
+#elif defined __linux__
+#include <unistd.h>
+#include <sys/stat.h> ¡¡
+#include <sys/types.h>
+#include <sys/time.h>
+#elif defined VXWORKS
 #endif
 timespec ConvertMilliSeconds( int nMilliseconds )
 {

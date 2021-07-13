@@ -3,7 +3,7 @@
 CProcessMutex::CProcessMutex( const char* strKey )
 {
 	memset(m_KeyBufer, '\0', sizeof(char) * 128);
-	strcat_s(m_KeyBufer, strKey);
+	strcat(m_KeyBufer, strKey);
 #ifdef WIN32
 	
 	m_hHandle = OpenMutex(MUTEX_ALL_ACCESS, FALSE, m_KeyBufer);

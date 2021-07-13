@@ -1,5 +1,9 @@
 SET(pthread_DIR ${CMAKE_INSTALL_PREFIX}/pthread CACHE STRING "settting pthread_DIR path" FORCE)
 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+	SET(pthread_DIR "" CACHE STRING "settting pthread_DIR path" FORCE)
+endif()
+
 #SET(pthread_DIR "" CACHE PATH "Location of pthread")
 
 FIND_PATH(pthread_INCLUDE_DIR pthread.h

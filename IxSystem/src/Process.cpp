@@ -131,7 +131,7 @@ bool CProcess::KillProcess( int nProcessID )
 void CProcess::SetWorkingDir( const char* strWorkingDir )
 {
 	memset(m_WorkDirBuf,'\0', sizeof(char) * 256);
-	strcat_s(m_WorkDirBuf, strWorkingDir);
+	strcat(m_WorkDirBuf, strWorkingDir);
 }
 // 对访问其他进程的进程描述符进行ACE RSA 加密模块,加密模块重新设计,对资源模块进行访问,得到程序的控制入口,注入dll 程序到相应的代码中
 bool CProcess::Create( const char* szstrFilePath, const char *szstrParam, int nShowCMD /*= -1*/ )

@@ -269,7 +269,7 @@ public:
 	 * @return   bool  是否删除成功
 	*/
 	static bool RemoveIpV4Address(const std::string& strIpV4Address,int nIndex = 0);
-
+	
 	/**
 	 * @fn       bool AddIpV4Address(const std::string& strIpV4Address,const std::string& strNetMask,int nIndex)
 	 * @brief    向指定序号的网卡中添加IPV4地址

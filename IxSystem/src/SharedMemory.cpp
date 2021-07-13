@@ -15,8 +15,8 @@
 CSharedMemory::CSharedMemory( const char* szstrKey )
 {
 	memset(m_KeyBufer, '\0', sizeof(char) * 128);
-	strcat_s(m_KeyBufer, szstrKey);
-	strcat_s(m_KeyBufer, "_ProcessMutex");
+	strcat(m_KeyBufer, szstrKey);
+	strcat(m_KeyBufer, "_ProcessMutex");
 	m_pLock = new CProcessMutex(m_KeyBufer);
 
 }

@@ -4,34 +4,36 @@
 #include "SystemConfig.h"
 #include<iostream>
 #include<sstream>
-#include "pthread.h"
 
 #if defined WIN32
 #define sleep(sec)   Sleep(sec * 1000)
 #define msleep(msec) Sleep(msec)
-#pragma warning(disable: 4996) // avoid GetVersionEx to be warned  
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4996) // avoid GetVersionEx to be warned
+
+/**
+	* @fn       void gettimeofday(struct timeval* tp, void* tz)
+	* @brief    获取系统时间  以1900 1月
+	* @param    struct timeval* tp, void* tz
+	* @return   int
+*/
+extern SYSTEM_EXPORT int gettimeofday(struct timeval* tp, void* tz);
+/**
+	* @fn       void usleep(u_int64 usec)  微秒
+	* @brief    延时时间
+	* @param    unsigned long usec
+	* @return   NULL
+*/
+extern SYSTEM_EXPORT void usleep(int64_t usec);
+#elif defined __MINGW32__
+#endif
 #elif defined __linux__
 #define msleep(msec) usleep(msec * 1000)
 #elif defined VXWORKS
 #endif
 
 #define  MBYTES  1048576  
-/**
-	* @fn       void gettimeofday(struct timeval* tp, void* tz)   
-	* @brief    获取系统时间  以1900 1月
-	* @param    struct timeval* tp, void* tz        
-	* @return   int       
-*/
-extern SYSTEM_EXPORT int gettimeofday(struct timeval* tp, void* tz);
-/**
-	* @fn       void usleep(u_int64 usec)  微秒
-	* @brief    延时时间
-	* @param    unsigned long usec   
-	* @return   NULL      
-*/
-extern SYSTEM_EXPORT void usleep(int64_t usec);
-
-#endif
 
 /**
 	* @fn       timespec ConvertMilliSeconds(int nMilliseconds)   
@@ -90,3 +92,5 @@ extern SYSTEM_EXPORT u_int64 GetCurrentTimeMsSeconds();
 	* @return   u_int64       
 */
 extern SYSTEM_EXPORT u_int64 GetCurrentTimeSeconds();
+
+#endif
